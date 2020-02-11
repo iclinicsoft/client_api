@@ -10,12 +10,13 @@
 Когда данные изменились на стороне сервера (например, юзер отменил запись к врачу) - сервер должен уведомить об этом клиента. 
 
 # Протокол для обмена данными с сервером
-Каждый запрос подписывается уникальным токеном, который выдается непосредственно клиенту при регистрации.
+## Авторизация
+Доступ к API возможен только ограниченному кол-ву пользователей. Каждому из них iClinic выдает уникальный токен доступа, которым подписывается каждый запрос. После авторизации клиент должен периодически запрашивать новый токен, взамен устаревшего.
 
 
 ## Врачи
 ### Список всех врачей
-* `GET`: `/api/v1/integration/doctos`
+* `GET`: `/api/v1/integration/doctors`
 * Пример ответа:
 ```
 {
@@ -47,7 +48,7 @@
     ]
 ```
 ### Отдельный врач
-* `GET`: `/api/v1/integration/doctos/<id>` - получить инфу по врачу
+* `GET`: `/api/v1/integration/doctos/<id>` - получить информацию по врачу
 * Пример ответа:
 ```
 {
@@ -72,7 +73,7 @@
 }
 ```
 ------------------
-* `PUT`/`PATCH`: `/api/v1/integration/doctos/<id>` - обновить инфу по врачу.
+* `PUT`/`PATCH`: `/api/v1/integration/doctos/<id>` - обновить информацию по врачу.
 * Запрос:
 ```
 curl -X PATCH -H "Content-Type: application/json" -d '{"education":"высшее","description":"Лучший доктор клиники"}' http://localhost:8080/api/v1/integration/doctos/<2>
@@ -139,7 +140,7 @@ curl -X PATCH -H "Content-Type: application/json" -d '{"education":"высшее
 }
 ```
 ### Отдельная услуга
-* `GET`: `/api/v1/integration/services/<id>` - получить инфу по услуге
+* `GET`: `/api/v1/integration/services/<id>` - получить информацию по услуге
 * Пример ответа:
 ```json5
 {
@@ -165,7 +166,7 @@ curl -X PATCH -H "Content-Type: application/json" -d '{"education":"высшее
 }
 ```
 ------------------
-* `PUT`/`PATCH`: `/api/v1/integration/doctos/<id>` - обновить инфу по врачу.
+* `PUT`/`PATCH`: `/api/v1/integration/doctos/<id>` - обновить информацию по врачу.
 * Запрос:
 ```bash
 curl -X PATCH -H "Content-Type: application/json" -d '{"description":"Самая крутая услуга по эту сторону Стены"}' http://localhost:8080/api/v1/integration/services/1
@@ -230,7 +231,7 @@ curl -X PATCH -H "Content-Type: application/json" -d '{"description":"Самая
 ```
 
 ### Отдельный пациент
-* `GET`: `/api/v1/integration/patients/<id>` - получить инфу по пациенту
+* `GET`: `/api/v1/integration/patients/<id>` - получить информацию по пациенту
 * Пример ответа
 ```json5
 {
@@ -255,7 +256,7 @@ curl -X PATCH -H "Content-Type: application/json" -d '{"description":"Самая
 ```
 
 ----------------------------
-* `PUT`/`PATCH`: `/api/v1/integration/patients/<id>` - обновить инфу по пациенту.
+* `PUT`/`PATCH`: `/api/v1/integration/patients/<id>` - обновить информацию по пациенту.
 * Запрос:
 ```bash
 curl -X PATCH -H "Content-Type: application/json" -d '{"last_name":"Сидорова"}' http://localhost:8080/api/v1/integration/patient/1
@@ -329,4 +330,4 @@ curl -X PATCH -H "Content-Type: application/json" -d '{"last_name":"Сидоро
     }
   ]
 }
-```gst
+```
